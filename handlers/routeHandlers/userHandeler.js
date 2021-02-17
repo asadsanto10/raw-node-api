@@ -111,7 +111,64 @@ handeler._users.get = (requestProperties, callback) => {
 
 // for put
 handeler._users.put = (requestProperties, callback) => {
-  
+  const firstName =
+    typeof requestProperties.body.firstName === 'string' &&
+    requestProperties.body.firstName.trim().length > 0
+      ? requestProperties.body.firstName
+      : false;
+
+  const lastName =
+    typeof requestProperties.body.lastName === 'string' &&
+    requestProperties.body.lastName.trim().length > 0
+      ? requestProperties.body.lastName
+      : false;
+
+  const phone =
+    typeof requestProperties.body.phone === 'string' &&
+    requestProperties.body.phone.trim().length === 11
+      ? requestProperties.body.phone
+      : false;
+
+  const password =
+    typeof requestProperties.body.password === 'string' &&
+    requestProperties.body.password.trim().length > 0
+      ? requestProperties.body.password
+      : false;
+
+  // find user
+  if (phone) {
+    if (firstName || lastName || phone) {
+      data.read('users', phone, (err, userData) => {
+        const user = { ...perseJSON(userData) };
+        if (!err && user) {
+          if (firstName) {
+            user.firstName = firstName;
+          }
+          if (lastName) {
+            user.lastName = lastName;
+          }
+          if (password) {
+            user.phone = hash(password);
+          }
+
+          // update data
+          data.update('users', phone, user, (err1) => {
+            if (!err1) {
+              callback(200, { message: 'successfully update data' });
+            } else {
+              callback(404, { error: 'data not update priority' });
+            }
+          });
+        } else {
+          callback(404, { error: 'something went wrong' });
+        }
+      });
+    } else {
+      callback(404, { error: 'please select a input field' });
+    }
+  } else {
+    callback(404, { error: 'user not found' });
+  }
 };
 
 // for delete

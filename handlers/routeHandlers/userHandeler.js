@@ -20,7 +20,6 @@ handeler.userHandeler = (requestProperties, callback) => {
 
 // scaffolding
 handeler._users = {};
-
 // for post
 handeler._users.post = (requestProperties, callback) => {
   const firstName =
@@ -85,7 +84,6 @@ handeler._users.post = (requestProperties, callback) => {
     });
   }
 };
-
 // for get
 handeler._users.get = (requestProperties, callback) => {
   // check the query sstring valid
@@ -172,6 +170,30 @@ handeler._users.put = (requestProperties, callback) => {
 };
 
 // for delete
-handeler._users.delete = (requestProperties, callback) => {};
+handeler._users.delete = (requestProperties, callback) => {
+  const phone =
+    typeof requestProperties.querystringObject.phone === 'string' &&
+    requestProperties.querystringObject.phone.trim().length === 11
+      ? requestProperties.querystringObject.phone
+      : false;
+  if (phone) {
+    data.read('users', phone, (err, userData) => {
+      if (!err && userData) {
+        data.delete('users', phone, (err1) => {
+          if (!err1) {
+            callback(200, { message: 'data delete successfully' });
+          } else {
+            callback(404, { error: 'data do not delete' });
+            console.log(err1);
+          }
+        });
+      } else {
+        callback(500, { error: 'this is a server side error' });
+      }
+    });
+  } else {
+    callback(404, { error: 'there wse problem in your request' });
+  }
+};
 
 module.exports = handeler;

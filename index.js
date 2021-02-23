@@ -4,10 +4,10 @@
  */
 
 //  dependencies
-const http = require("http");
-const { handelReqRes } = require("./helpers/handelReqRes");
-const environment = require("./helpers/environments");
-const data = require("./lib/data");
+const http = require('http');
+const { handelReqRes } = require('./helpers/handelReqRes');
+const environment = require('./helpers/environments');
+// const data = require('./lib/data');
 // app object - module scaffolding
 const app = {};
 // testing data********

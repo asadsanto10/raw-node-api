@@ -25,7 +25,7 @@ handler.handelReqRes = (req, res) => {
 
   const querystringObject = parseurl.query; // get the querystring
 
-  const headerObjectMetadata = req.headers; // get the meta data from server or others
+  const headerObject = req.headers; // get the meta data from server or others
 
   const requestProperties = {
     parseurl,
@@ -33,7 +33,7 @@ handler.handelReqRes = (req, res) => {
     trimPath,
     method,
     querystringObject,
-    headerObjectMetadata,
+    headerObject,
   };
 
   // buffer

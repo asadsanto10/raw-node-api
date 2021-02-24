@@ -9,7 +9,7 @@ const environments = require('./environments');
 const utillities = {};
 
 // parse json strin to object
-utillities.perseJSON = (jsonSting) => {
+utillities.parseJSON = (jsonSting) => {
   let output;
 
   try {

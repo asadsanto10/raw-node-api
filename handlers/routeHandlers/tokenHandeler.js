@@ -4,7 +4,7 @@
 
 // dependencies
 const data = require('../../lib/data');
-const { hash, createRandom, perseJSON } = require('../../helpers/utillities');
+const { hash, createRandom, parseJSON } = require('../../helpers/utillities');
 // const {  } = require("../../helpers/utillities");
 
 const handeler = {};
@@ -37,7 +37,7 @@ handeler._token.post = (requestProperties, callback) => {
   if (phone && password) {
     data.read('users', phone, (err, userData) => {
       const hashPassword = hash(password);
-      if (hashPassword === perseJSON(userData).password) {
+      if (hashPassword === parseJSON(userData).password) {
         const tokenId = createRandom(20);
         const expire = Date.now() + 60 * 60 * 1000;
         const tokenObject = {
@@ -73,7 +73,7 @@ handeler._token.get = (requestProperties, callback) => {
   if (id) {
     // look up the token
     data.read('token', id, (err, tokenData) => {
-      const token = perseJSON(tokenData);
+      const token = parseJSON(tokenData);
       if (!err) {
         callback(200, token);
       } else {
@@ -98,7 +98,7 @@ handeler._token.put = (requestProperties, callback) => {
 
   if (id && extend) {
     data.read('token', id, (err, tokenData) => {
-      const tokenObject = perseJSON(tokenData);
+      const tokenObject = parseJSON(tokenData);
       if (tokenObject.expires > Date.now()) {
         tokenObject.expires = Date.now() * 60 * 60 * 1000;
 
@@ -150,7 +150,7 @@ handeler._token.delete = (requestProperties, callback) => {
 handeler._token.verify = (id, phone, callback) => {
   data.read('token', id, (err, tokenData) => {
     if (!err && tokenData) {
-      if (perseJSON(tokenData).phone === phone && perseJSON(tokenData).expires > Date.now()) {
+      if (parseJSON(tokenData).phone === phone && parseJSON(tokenData).expires > Date.now()) {
         callback(true);
       } else {
         callback(false);

@@ -4,7 +4,7 @@
 
 // dependencies
 const data = require('../../lib/data');
-const { hash, perseJSON } = require('../../helpers/utillities');
+const { hash, parseJSON } = require('../../helpers/utillities');
 // const {  } = require("../../helpers/utillities");
 const tokenHandeler = require('./tokenHandeler');
 
@@ -104,7 +104,7 @@ handeler._users.get = (requestProperties, callback) => {
       if (tokenId) {
         // look up the user
         data.read('users', phone, (err, userData) => {
-          const user = { ...perseJSON(userData) };
+          const user = { ...parseJSON(userData) };
           console.log(user);
           if (!err) {
             delete user.password;
@@ -161,7 +161,7 @@ handeler._users.put = (requestProperties, callback) => {
         if (tokenId) {
           // look up the user
           data.read('users', phone, (err, userData) => {
-            const user = { ...perseJSON(userData) };
+            const user = { ...parseJSON(userData) };
             if (!err && user) {
               if (firstName) {
                 user.firstName = firstName;

@@ -10,7 +10,7 @@ const url = require('url');
 const { StringDecoder } = require('string_decoder');
 const routes = require('../route');
 const { notFoundHandeler } = require('../handlers/routeHandlers/notFoundHandeler');
-const { perseJSON } = require('./utillities');
+const { parseJSON } = require('./utillities');
 
 // handel request response
 handler.handelReqRes = (req, res) => {
@@ -49,7 +49,7 @@ handler.handelReqRes = (req, res) => {
   req.on('end', () => {
     realData += decoder.end();
 
-    requestProperties.body = perseJSON(realData);
+    requestProperties.body = parseJSON(realData);
 
     chosenHandler(requestProperties, (statusCode, playload) => {
       let setStatusCode = statusCode;

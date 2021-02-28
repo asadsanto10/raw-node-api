@@ -1,55 +1,23 @@
 /**
- * title: uptime monitoring application
+ * title: project initial file
  * date: 19.02.21
  */
 
 //  dependencies
-const http = require('http');
-const { handelReqRes } = require('./helpers/handelReqRes');
-const environment = require('./helpers/environments');
-// const data = require('./lib/data');
+const server = require('./lib/server');
+const worker = require('./lib/worker');
 // app object - module scaffolding
 const app = {};
-// testing data********
-// TODO: pore muche dibo
-// data create ***********
-// data.create(
-//   "/test",
-//   "newFile",
-//   {
-//     name: "Bangladesh",
-//     language: "bangla",
-//   },
-//   (err) => {
-//     console.log(`error was ${err}`);
-//   }
-// );
 
-// data read ********
-// data.read("/", "newFile", (err, data) => {
-//   console.log(err, data);
-// });
-
-// data update
-// data.update("/", "newFile", { name: "santo", language: "english" }, (err) => {
-//   console.log(err);
-// });
-
-// data delete ********
-// data.delete("/", "newFile", (err) => {
-//   console.log(err);
-// });
-
-// create server
-app.createServer = () => {
-  const server = http.createServer(app.haderlReqRes);
-  server.listen(environment.port, () => {
-    console.log(`Listening to port ${environment.port}`);
-  });
+app.init = () => {
+  // start the server
+  server.init();
+  // start the worker
+  worker.init();
 };
 
-// handel request response
-app.haderlReqRes = handelReqRes;
+app.init();
 
-// start the server
-app.createServer();
+// export
+
+module.exports = app;

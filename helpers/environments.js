@@ -25,9 +25,9 @@ environment.production = {
   screctkey: 'sdfdsfdsfdffdghf',
   maxCheck: 5,
   twilio: {
-    fromPhone: process.envFROM_PHONE,
-    accountSid: process.envACCOUNT_SID,
-    authToken: process.envAUTH_TOKEN,
+    fromPhone: process.env.FROM_PHONE,
+    accountSid: process.env.ACCOUNT_SID,
+    authToken: process.env.AUTH_TOKEN,
   },
 };
 

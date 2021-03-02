@@ -5,6 +5,7 @@
 //  moudle scaffolding
 
 const environment = {};
+require('dotenv').config();
 
 environment.staging = {
   port: 3000,
@@ -12,9 +13,9 @@ environment.staging = {
   screctkey: 'hksdjfhkdsjfskjdndfs',
   maxCheck: 5,
   twilio: {
-    fromPhone: '+15403286203',
-    accountSid: 'AC382c28faa0060b57995753e6a116e9dd',
-    authToken: '2c482cbf3d66c1c23efcb82243ac97f5',
+    fromPhone: process.envFROM_PHONE,
+    accountSid: process.envACCOUNT_SID,
+    authToken: process.envAUTH_TOKEN,
   },
 };
 
@@ -24,9 +25,9 @@ environment.production = {
   screctkey: 'sdfdsfdsfdffdghf',
   maxCheck: 5,
   twilio: {
-    fromPhone: '+15403286203',
-    accountSid: 'AC382c28faa0060b57995753e6a116e9dd',
-    authToken: '2c482cbf3d66c1c23efcb82243ac97f5',
+    fromPhone: process.envFROM_PHONE,
+    accountSid: process.envACCOUNT_SID,
+    authToken: process.envAUTH_TOKEN,
   },
 };
 
